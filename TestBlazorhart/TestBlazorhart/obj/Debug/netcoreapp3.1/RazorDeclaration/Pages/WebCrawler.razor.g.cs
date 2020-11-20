@@ -160,14 +160,14 @@ using TestBlazorhart.Data;
     [Parameter] public int index { get; set; }
     private string[] resultsFromCrawler;
 
-    protected override async Task OnInitializedAsync()
-    {
-        //await ResultService.GetLinksFromUrl(index);
-        if (ResultService.resultsFromCraler != null)
-        {
-            resultsFromCrawler = ResultService.resultsFromCraler.ToArray();
-        }
-    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    //await ResultService.GetLinksFromUrl(index);
+    //    if (ResultService.resultsFromCraler != null)
+    //    {
+    //        resultsFromCrawler = ResultService.resultsFromCraler.ToArray();
+    //    }
+    //}
 
 #line default
 #line hidden

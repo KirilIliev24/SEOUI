@@ -75,3 +75,4 @@ C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\obj\Debug\netc
 C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.dll
 C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.pdb
 C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.genruntimeconfig.cache
+C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.csprojAssemblyReference.cache

@@ -88,12 +88,11 @@ namespace TestBlazorhart.Data
         public async Task GetLinksFromUrl(int index, DateTime time)
         {
             var result = results.Select(r => r).Where(r => r.blazorIndex == index).FirstOrDefault();
-
             try
             {
                 client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add("url", result.Link);
-                client.DefaultRequestHeaders.Add("date", time.ToString());
+                client.DefaultRequestHeaders.TryAddWithoutValidation("url", result.Link);
+                client.DefaultRequestHeaders.TryAddWithoutValidation("date", time.ToString());
                 var response = await client.GetStringAsync("https://localhost/SearchEngine/getLinksWithRegex");
                 resultsFromCraler.Clear();
                 resultsFromCraler = JsonConvert.DeserializeObject<List<string>>(response);

@@ -153,10 +153,10 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 43 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\Fragments\ExternalLinksComponent.razor"
+#line 45 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\Fragments\ExternalLinksComponent.razor"
        
     [Parameter] public int index { get; set; } // index of the link
-
+    public string message = "";
     string[] strings = new string[10];
     int noOfRows;// round ceiling
 
@@ -165,7 +165,8 @@ using TestBlazorhart.Data;
 
     public async Task GetData()
     {
-        await ResultService.GetLinksFromUrl(index, _Date.dateTime);
+        var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
+        await ResultService.GetLinksFromUrl(index, newTime);
         strings = ResultService.resultsFromCraler.ToArray();
         noOfRows = (int)Math.Ceiling((decimal)(strings.Length / 4));
     }
