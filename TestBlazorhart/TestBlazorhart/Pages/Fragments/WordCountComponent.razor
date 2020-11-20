@@ -1,0 +1,114 @@
+﻿
+@using ChartJs.Blazor.BarChart
+@using ChartJs.Blazor.Common
+@using ChartJs.Blazor.Common.Time
+@using ChartJs.Blazor.Common.Axes
+@using ChartJs.Blazor.Util
+
+@using TestBlazorhart.Data
+@inject ResultService ResultService
+
+<Chart Config="_barConfig"></Chart>
+
+@code {
+    private BarConfig _barConfig;
+
+    private BarDataset<TimePoint> _lineDataSetWords;
+
+    [Parameter]
+    public List<DateAndPosition> linkWords { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await initialiseChart();
+
+        _lineDataSetWords = new BarDataset<TimePoint>()
+        {
+            Label = "Word count",
+            BackgroundColor = ColorUtil.FromDrawingColor(System.Drawing.Color.Red),
+            BorderWidth = 0,
+            HoverBackgroundColor = ColorUtil.FromDrawingColor(System.Drawing.Color.Red),
+            HoverBorderColor = ColorUtil.FromDrawingColor(System.Drawing.Color.Red),
+            HoverBorderWidth = 1,
+            BorderColor = "#ffffff",
+            BarThickness = BarThickness.Flex
+        };
+
+
+        _lineDataSetWords.AddRange(linkWords
+        .Select(p => new TimePoint(p.Date, p.WordCount)));
+
+
+        _barConfig.Data.Datasets.Add(_lineDataSetWords);
+    }
+
+    private async Task initialiseChart()
+    {
+        _barConfig = new BarConfig
+        {
+            Options = new BarOptions
+            {
+                Responsive = true,
+                Title = new OptionsTitle
+                {
+                    Display = true,
+                    Text = "Word count"
+                },
+                Legend = new Legend
+                {
+                    Display = false
+                },
+                Tooltips = new Tooltips
+                {
+                    Mode = InteractionMode.Nearest,
+                    Intersect = false
+                },
+                Scales = new BarScales
+                {
+                    YAxes = new List<CartesianAxis>
+                    {
+                          new LinearCartesianAxis
+                          {
+                            Ticks = new LinearCartesianTicks
+                            {
+                                Reverse = false,
+                                Min = 0
+                            },
+                            ScaleLabel = new ScaleLabel
+                            {
+                                LabelString = "Word count"
+                            }
+                          }
+                    },
+                    XAxes = new List<CartesianAxis>
+                    {
+                        new TimeAxis
+                        {
+                            Distribution = TimeDistribution.Linear,
+                            Ticks = new TimeTicks
+                            {
+                                Source = TickSource.Data
+                            },
+                            Time = new TimeOptions
+                            {
+                                Unit = TimeMeasurement.Day,
+                                Round = TimeMeasurement.Hour,
+                                TooltipFormat = "MM.DD.YYYY",
+                                //DisplayFormats = TimeDisplayFormats.DE_CH
+                            },
+                            ScaleLabel = new ScaleLabel
+                            {
+                                LabelString = "Date"
+                            }
+                        }
+                    }
+                },
+                Hover = new Hover
+                {
+                    Intersect = true,
+                    Mode = InteractionMode.Y
+                }
+            }
+        };
+    }
+}

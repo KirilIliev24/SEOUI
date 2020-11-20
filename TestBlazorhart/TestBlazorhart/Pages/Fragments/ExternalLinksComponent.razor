@@ -1,0 +1,63 @@
+﻿@using TestBlazorhart.Data
+
+
+@inject ResultService ResultService
+
+<h3>ExternalLinksComponent</h3>
+
+
+<div class="container">
+    <table>
+        @if (noOfRows != 0)
+        {
+            @for (int i = 0; i < noOfRows; i++)
+            {
+                <tr>
+                    @for (int j = 0; j < 4; j++)
+                    {
+                        <td>@strings[i * 4 + j]</td>
+                    }
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <label>Select date: </label>
+            <EditForm Model="@_Date">
+                <InputDate @bind-Value="_Date.dateTime" class="form-control" />
+            </EditForm>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button @onclick="GetData" @onclick:preventDefault>Get data</button>
+        </div>
+    </div>
+
+
+</div>
+@code {
+    [Parameter] public int index { get; set; } // index of the link
+
+    string[] strings = new string[10];
+    int noOfRows;// round ceiling
+
+    TimeSelected _Date { get; set; } = new TimeSelected();
+
+
+    public async Task GetData()
+    {
+        await ResultService.GetLinksFromUrl(index, _Date.dateTime);
+        strings = ResultService.resultsFromCraler.ToArray();
+        noOfRows = (int)Math.Ceiling((decimal)(strings.Length / 4));
+    }
+
+    public class TimeSelected
+    {
+        public DateTime dateTime { get; set; } = DateTime.Now;
+    }
+}

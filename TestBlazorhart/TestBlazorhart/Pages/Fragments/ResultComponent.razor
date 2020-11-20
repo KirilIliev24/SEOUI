@@ -1,0 +1,70 @@
+﻿@using TestBlazorhart.Data
+@inject ResultService ResultService
+@inject NavigationManager NavManager
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <p>Keword used: @result.keyword</p>
+        <div class="col-lg-12" id="items">
+            @result.Title
+            <br />
+            <a href="@result.Link">@result.Link</a>
+            <br />
+            @result.Snippet
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1">
+            <button class="button1" @onclick="enterCrawler">Crawl</button>
+        </div>
+        <div class="col-md-1">
+            <button  @onclick="viewLinkPositions">Rankings</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public Result result { get; set; }
+
+    private void enterCrawler()
+    {
+        string baseAddress = NavManager.BaseUri;
+        NavManager.NavigateTo($"{baseAddress}/WebCrawler/{result.blazorIndex}", true);
+    }
+    private void viewLinkPositions()
+    {
+        string baseAddress = NavManager.BaseUri;
+        NavManager.NavigateTo($"{baseAddress}/Rankings/{result.blazorIndex}", false);
+    }
+}
+
+<style>
+   
+
+    #items {
+        background-color: whitesmoke;
+        display: block;
+        width: 500px;
+        height: auto;
+        border-style: solid;
+        border-width: 1px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        word-wrap: break-word;
+        text-overflow: ellipsis;
+    }
+
+    .button1 {
+        background-color: transparent;
+        transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+        margin-right: 10px;
+    }
+    button:hover {
+        box-shadow: 0 0 40px 40px #e74c3c inset;
+    }
+</style>

@@ -1,0 +1,40 @@
+﻿
+@using TestBlazorhart.Data
+@inject ResultService ResultService
+
+@page "/WebCrawler/{index:int}"
+<h1>Web Crowler</h1>
+
+
+<div>
+    @if (resultsFromCrawler != null)
+    {
+        @foreach (var result in resultsFromCrawler)
+        {
+            <a href="@result">@result</a>
+            <br />
+            <i>-----------------------------------------------------------------------</i>
+            <br />
+        }
+    }
+    else
+    {
+        <b>Search for someting first</b>
+    }
+</div>
+
+
+@code {
+
+    [Parameter] public int index { get; set; }
+    private string[] resultsFromCrawler;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //await ResultService.GetLinksFromUrl(index);
+        if (ResultService.resultsFromCraler != null)
+        {
+            resultsFromCrawler = ResultService.resultsFromCraler.ToArray();
+        }
+    }
+}

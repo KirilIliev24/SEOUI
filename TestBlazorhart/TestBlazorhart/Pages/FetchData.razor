@@ -1,0 +1,94 @@
+﻿@page "/fetchdata"
+
+@using TestBlazorhart.Data
+@using TestBlazorhart.Pages.Fragments
+@inject ResultService ResultService
+
+<body>
+    <h1>Results display</h1>
+
+    <p>This component demonstrates fetching data from a service.</p>
+
+    <div>
+        <input type="text" @bind="addKeyword" />
+        <button class="btn btn-primary" @onclick="AddKeyWord">Add keyword</button>
+    </div>
+    <div>
+        <select @bind="keyword">
+            <option>--Please choose an option--</option>
+            @if (keywords.Count != 0)
+            {
+                @foreach (string s in keywords)
+                {
+                    <option value="@s">@s</option>
+                }
+            }
+            else
+            {
+                <option disabled>Waiting for keywords...</option>
+            }
+
+        </select>
+        <button class="btn btn-primary" @onclick="GetLinks">Get links</button>
+    </div>
+
+
+    @if (results != null)
+    {
+        @foreach (var result in results)
+        {
+            <TestBlazorhart.Pages.Fragments.ResultComponent result="@result"></TestBlazorhart.Pages.Fragments.ResultComponent>
+        }
+    }
+    else
+    {
+        <i>Loading...</i>
+    }
+
+</body>
+
+
+
+@code {
+    private Result[] results;
+    private List<string> keywords = new List<string>();
+    private string addKeyword;
+    private string keyword = "";
+
+    private async Task AddKeyWord()
+    {
+        await ResultService.AddKeyord(addKeyword);
+        await ResultService.GetAllKeyords();
+        keywords = ResultService.keywords;
+    }
+
+    private async Task GetLinks()
+    {
+        await ResultService.GetResultAsync(keyword);
+        results = ResultService.results.ToArray();
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ResultService.results != null)
+        {
+            results = ResultService.results.ToArray();
+        }
+        try
+        {
+            await ResultService.GetAllKeyords();
+            keywords = ResultService.keywords;
+        }
+        catch (Exception e)
+        {
+
+            Console.WriteLine(e.StackTrace);
+        }
+    }
+}
+<style>
+    body {
+        background-color: #a1bbd6;
+    }
+</style>
