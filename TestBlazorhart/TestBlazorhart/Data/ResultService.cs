@@ -105,7 +105,7 @@ namespace TestBlazorhart.Data
                 {
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.TryAddWithoutValidation("url", resultOne.Link);
-                    client.DefaultRequestHeaders.TryAddWithoutValidation("urlTwo", string.Empty);
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("urlTwo", "");
                     client.DefaultRequestHeaders.TryAddWithoutValidation("date", time.ToString());
                     var responseTwo = await client.GetStringAsync("https://localhost/SearchEngine/getLinksWithRegex");
                     resultsFromCraler.Clear();

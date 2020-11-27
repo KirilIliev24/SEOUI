@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Aw8WqQ5UbjCDs5LRrw7hkwZhLpyQDuT+r4658GfVfdcR1ojFE/6gzCC7U7X0zqQLKvTrr7qz6yH+3zNN6eHEKA==",
+  "dgSpecHash": "it8PNhGdP5f3EcRXpEBh07if8GFMZmTSHIJCD9W/YCWj8nWDaRPw2Txjf1ag7evxY7+KwmzaoIPCQVKbCRRKPg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\source\\repos\\TestBlazorhart\\TestBlazorhart\\TestBlazorhart.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Kiril\\repos\\SEOUI\\TestBlazorhart\\TestBlazorhart\\TestBlazorhart.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\chartjs.blazor.fork\\2.0.0\\chartjs.blazor.fork.2.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.10\\microsoft.aspnetcore.authorization.3.1.10.nupkg.sha512",
