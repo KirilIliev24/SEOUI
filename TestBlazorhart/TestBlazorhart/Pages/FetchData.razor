@@ -5,33 +5,47 @@
 @inject ResultService ResultService
 
 <body>
-    <h1>Results display</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Search result page</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Choose a keyword</label>
+                <br />
+                <select @bind="keyword">
+                    <option value="" disabled selected>--Choose--</option>
+                    @if (keywords.Count != 0)
+                    {
+                        @foreach (string s in keywords)
+                        {
+                            <option value="@s">@s</option>
+                        }
+                    }
+                    else
+                    {
+                        <option disabled>Waiting for keywords...</option>
+                    }
+                </select>
+                <button @onclick="GetLinks">Get links</button>
+            </div>
 
-    <p>This component demonstrates fetching data from a service.</p>
-
-    <div>
-        <input type="text" @bind="addKeyword" />
-        <button class="btn btn-primary" @onclick="AddKeyWord">Add keyword</button>
+            @*<div class="col-md-3 align-self-end">
+                    <button @onclick="GetLinks">Get links</button>
+                </div>*@
+            <div class="col-md-6">
+                <label>Add a keyword</label>
+                <br />
+                <input type="text" @bind="addKeyword" />
+                <button @onclick="AddKeyWord">Add keyword</button>
+            </div>
+            @*<div class="col-md-3 align-self-end">
+                    <button @onclick="AddKeyWord">Add keyword</button>
+                </div>*@
+        </div>
     </div>
-    <div>
-        <select @bind="keyword">
-            <option>--Please choose an option--</option>
-            @if (keywords.Count != 0)
-            {
-                @foreach (string s in keywords)
-                {
-                    <option value="@s">@s</option>
-                }
-            }
-            else
-            {
-                <option disabled>Waiting for keywords...</option>
-            }
-
-        </select>
-        <button class="btn btn-primary" @onclick="GetLinks">Get links</button>
-    </div>
-
 
     @if (results != null)
     {
@@ -89,6 +103,38 @@
 }
 <style>
     body {
-        background-color: #a1bbd6;
+        background-color: #ebf4ff;
+    }
+
+    input {
+        margin-top: 5px;
+        width: 50%;
+        height: 30px;
+    }
+
+    select {
+        margin-top: 5px;
+        width: 50%;
+        height: 30px;
+    }
+
+    button {
+        width: 25%;
+        height: 30px;
+        background-color: #07428a;
+        color: white;
+        margin-top: 5px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    label {
+        font-size: large;
+    }
+
+    div.col-md-6 {
+        display: block;
     }
 </style>

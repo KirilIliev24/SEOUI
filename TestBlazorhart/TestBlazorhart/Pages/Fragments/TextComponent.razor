@@ -1,0 +1,64 @@
+﻿
+@using TestBlazorhart.Data
+
+@inject ResultService ResultService
+
+<h3>TextComponent</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text">
+            @if (!meaningfulText.Equals(""))
+            {
+                <p>@meaningfulText</p>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Select date: </label>
+            <EditForm Model="@_Date">
+                <InputDate @bind-Value="_Date.dateTime" class="form-control" />
+            </EditForm>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button @onclick="GetData" @onclick:preventDefault>Get data</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int index { get; set; } // index of the link
+    public string meaningfulText = "";
+
+    TimeSelected _Date { get; set; } = new TimeSelected();
+
+
+    public async Task GetData()
+    {
+        var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
+
+        meaningfulText = await ResultService.GetMeaningfulText(index, newTime);
+       
+    }
+
+    public class TimeSelected
+    {
+        public DateTime dateTime { get; set; } = DateTime.Now;
+    }
+}
+
+<style>
+    p {
+        width: inherit;
+        max-height: 200px;
+        overflow: auto;
+    }
+    div.text {
+        border: solid;
+        border-width: 3px;
+        border-color: black;
+    }
+</style>

@@ -153,22 +153,34 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 45 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\Fragments\ExternalLinksComponent.razor"
+#line 71 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\Fragments\ExternalLinksComponent.razor"
        
     [Parameter] public int index { get; set; } // index of the link
     public string message = "";
-    string[] strings = new string[10];
-    int noOfRows;// round ceiling
+    List<string> strings = new List<string>();
+    List<Result> results = new List<Result>();
+    int noOfRows;// round ceiling missing a row
+    public int secondLinkId;
 
     TimeSelected _Date { get; set; } = new TimeSelected();
 
+    protected async override Task OnInitializedAsync()
+    {
+        results = await Task.Run(() => ResultService.results); 
+    }
 
     public async Task GetData()
     {
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
-        await ResultService.GetLinksFromUrl(index, newTime);
-        strings = ResultService.resultsFromCraler.ToArray();
-        noOfRows = (int)Math.Ceiling((decimal)(strings.Length / 4));
+        await ResultService.GetLinksFromUrl(index, secondLinkId ,newTime);
+        strings = ResultService.resultsFromCraler;
+        noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
+
+        for (int i = strings.Count(); i < noOfRows * 4; i++)
+        {
+            strings.Add("");
+        }
+        strings.ToArray();
     }
 
     public class TimeSelected

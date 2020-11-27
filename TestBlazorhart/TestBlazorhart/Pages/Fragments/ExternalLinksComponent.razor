@@ -3,33 +3,63 @@
 
 @inject ResultService ResultService
 
-<h3>ExternalLinksComponent</h3>
+<h3>External links</h3>
 
 
 <div class="container">
-    <table>
-        @if (noOfRows != 0)
-        {
-            @for (int i = 0; i < noOfRows; i++)
-            {
-                <tr>
-                    @for (int j = 0; j < 4; j++)
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+
+            <table>
+                @if (noOfRows != 0)
+                {
+                    @for (int i = 0; i < noOfRows; i++)
                     {
-                        <td>@strings[i * 4 + j]</td>
+                        <tr>
+                            @for (int j = 0; j < 4; j++)
+                            {
+                                @if (@strings[i * 4 + j] != null)
+                                {
+                                    <td><a href="@strings[i * 4 + j]">@strings[i * 4 + j]</a></td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+                            }
+                        </tr>
                     }
-                </tr>
-            }
-        }
-    </table>
+                }
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <label>Select date: </label>
             <EditForm Model="@_Date">
                 <InputDate @bind-Value="_Date.dateTime" class="form-control" />
             </EditForm>
+        </div>
+        <div class="col-md-6">
+            <label>Choose second link for crossreference</label>
+            <select @bind="secondLinkId">
+                <option value="-1" disabled selected>--Choose--</option>
+                @if (results.Count != 0)
+                {
+                    @foreach (Result s in results)
+                    {
+                        <option value="@s.blazorIndex">@s.Link</option>
+                    }
+                }
+                else
+                {
+                    <option disabled>Waiting for keywords...</option>
+                }
+                <option value="-1">None</option>
+            </select>
         </div>
     </div>
     <div class="row">
@@ -37,24 +67,34 @@
             <button @onclick="GetData" @onclick:preventDefault>Get data</button>
         </div>
     </div>
-
-
 </div>
 @code {
     [Parameter] public int index { get; set; } // index of the link
     public string message = "";
-    string[] strings = new string[10];
-    int noOfRows;// round ceiling
+    List<string> strings = new List<string>();
+    List<Result> results = new List<Result>();
+    int noOfRows;// round ceiling missing a row
+    public int secondLinkId;
 
     TimeSelected _Date { get; set; } = new TimeSelected();
 
+    protected async override Task OnInitializedAsync()
+    {
+        results = await Task.Run(() => ResultService.results); 
+    }
 
     public async Task GetData()
     {
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
-        await ResultService.GetLinksFromUrl(index, newTime);
-        strings = ResultService.resultsFromCraler.ToArray();
-        noOfRows = (int)Math.Ceiling((decimal)(strings.Length / 4));
+        await ResultService.GetLinksFromUrl(index, secondLinkId ,newTime);
+        strings = ResultService.resultsFromCraler;
+        noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
+
+        for (int i = strings.Count(); i < noOfRows * 4; i++)
+        {
+            strings.Add("");
+        }
+        strings.ToArray();
     }
 
     public class TimeSelected
@@ -62,3 +102,23 @@
         public DateTime dateTime { get; set; } = DateTime.Now;
     }
 }
+<style>
+
+    table {
+        margin: auto;
+        width: 50% !important;
+    }
+
+    td {
+        max-width: 300px;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    h3 {
+        text-align: center
+    }
+</style>

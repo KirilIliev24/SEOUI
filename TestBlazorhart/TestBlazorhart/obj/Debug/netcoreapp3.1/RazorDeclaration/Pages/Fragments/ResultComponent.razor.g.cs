@@ -153,15 +153,10 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 31 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\Fragments\ResultComponent.razor"
+#line 27 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\Fragments\ResultComponent.razor"
        
     [Parameter] public Result result { get; set; }
 
-    private void enterCrawler()
-    {
-        string baseAddress = NavManager.BaseUri;
-        NavManager.NavigateTo($"{baseAddress}/WebCrawler/{result.blazorIndex}", true);
-    }
     private void viewLinkPositions()
     {
         string baseAddress = NavManager.BaseUri;

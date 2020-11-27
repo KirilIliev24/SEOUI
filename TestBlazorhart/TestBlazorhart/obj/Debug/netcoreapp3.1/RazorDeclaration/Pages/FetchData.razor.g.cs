@@ -161,7 +161,7 @@ using TestBlazorhart.Pages.Fragments;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 52 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
+#line 66 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
        
     private Result[] results;
     private List<string> keywords = new List<string>();

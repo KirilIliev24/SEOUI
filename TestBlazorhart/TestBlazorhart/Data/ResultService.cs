@@ -85,17 +85,32 @@ namespace TestBlazorhart.Data
         }
 
 
-        public async Task GetLinksFromUrl(int index, DateTime time)
+        public async Task GetLinksFromUrl(int index, int secondIndex, DateTime time)
         {
-            var result = results.Select(r => r).Where(r => r.blazorIndex == index).FirstOrDefault();
             try
             {
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.TryAddWithoutValidation("url", result.Link);
-                client.DefaultRequestHeaders.TryAddWithoutValidation("date", time.ToString());
-                var response = await client.GetStringAsync("https://localhost/SearchEngine/getLinksWithRegex");
-                resultsFromCraler.Clear();
-                resultsFromCraler = JsonConvert.DeserializeObject<List<string>>(response);
+                var resultOne = results.Select(r => r).Where(r => r.blazorIndex == index).FirstOrDefault();
+                if (secondIndex != -1)
+                {
+                    var resultTwo = results.Select(r => r).Where(r => r.blazorIndex == secondIndex).FirstOrDefault();
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("url", resultOne.Link);
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("urlTwo", resultTwo.Link);
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("date", time.ToString());
+                    var responseOne = await client.GetStringAsync("https://localhost/SearchEngine/getLinksWithRegex");
+                    resultsFromCraler.Clear();
+                    resultsFromCraler = JsonConvert.DeserializeObject<List<string>>(responseOne);
+                }
+                else if(secondIndex == -1)
+                {
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("url", resultOne.Link);
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("urlTwo", string.Empty);
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("date", time.ToString());
+                    var responseTwo = await client.GetStringAsync("https://localhost/SearchEngine/getLinksWithRegex");
+                    resultsFromCraler.Clear();
+                    resultsFromCraler = JsonConvert.DeserializeObject<List<string>>(responseTwo);
+                }
             }
             catch (Exception e)
             {
@@ -131,5 +146,30 @@ namespace TestBlazorhart.Data
                     Console.WriteLine(e.Message);
             }
         }
+
+        public async Task<string> GetMeaningfulText(int index, DateTime time)
+        {
+            var result = results.Select(r => r).Where(r => r.blazorIndex == index).FirstOrDefault();
+            string zippedText = "";
+            string unZippedText = "";
+            try
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.TryAddWithoutValidation("url", result.Link);
+                client.DefaultRequestHeaders.TryAddWithoutValidation("date", time.ToString());
+                var response = await client.GetStringAsync("https://localhost/SearchEngine/getMeaningfultext");
+
+                //zippedText = JsonConvert.DeserializeObject<string>(response);
+                zippedText = response;
+                unZippedText = Zipper.Decompress(zippedText);
+            }
+            catch (Exception e)
+            {
+                if (e is NullReferenceException || e is ArgumentNullException || e is HttpRequestException)
+                    Console.WriteLine(e.Message);
+            }
+            return unZippedText;
+        }
+       
     }
 }

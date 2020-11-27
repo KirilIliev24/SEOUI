@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("008b32d0-fbcc-4ed4-8a9c-7af34f51a97f")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("TestBlazorhart")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
