@@ -31,22 +31,30 @@
                 </select>
                 <button @onclick="GetLinks">Get links</button>
             </div>
-
-            @*<div class="col-md-3 align-self-end">
-                    <button @onclick="GetLinks">Get links</button>
-                </div>*@
             <div class="col-md-6">
                 <label>Add a keyword</label>
                 <br />
                 <input type="text" @bind="addKeyword" />
                 <button @onclick="AddKeyWord">Add keyword</button>
             </div>
-            @*<div class="col-md-3 align-self-end">
-                    <button @onclick="AddKeyWord">Add keyword</button>
-                </div>*@
         </div>
     </div>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Start date: </label>
+                <EditForm Model="@_startDate">
+                    <InputDate @bind-Value="_startDate.dateTime" class="form-control" />
+                </EditForm>
+            </div>
+            <div class="col-md-6">
+                <label>End date: </label>
+                <EditForm Model="@_endDate">
+                    <InputDate @bind-Value="_endDate.dateTime" class="form-control" />
+                </EditForm>
+            </div>
+        </div>
+    </div>
     @if (results != null)
     {
         @foreach (var result in results)
@@ -69,6 +77,9 @@
     private string addKeyword;
     private string keyword = "";
 
+    TimeSelected _startDate { get; set; } = new TimeSelected();
+    TimeSelected _endDate { get; set; } = new TimeSelected();
+
     private async Task AddKeyWord()
     {
         await ResultService.AddKeyord(addKeyword);
@@ -78,6 +89,7 @@
 
     private async Task GetLinks()
     {
+        //add dates to the method
         await ResultService.GetResultAsync(keyword);
         results = ResultService.results.ToArray();
     }
@@ -99,6 +111,11 @@
 
             Console.WriteLine(e.StackTrace);
         }
+    }
+
+    public class TimeSelected
+    {
+        public DateTime dateTime { get; set; } = DateTime.Now;
     }
 }
 <style>

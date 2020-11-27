@@ -44,7 +44,7 @@
             </EditForm>
         </div>
         <div class="col-md-6">
-            <label>Choose second link for crossreference</label>
+            <label>Choose second link for cross reference</label>
             <select @bind="secondLinkId">
                 <option value="-1" disabled selected>--Choose--</option>
                 @if (results.Count != 0)
@@ -124,5 +124,12 @@
     select {
         width: inherit;
         height: 35px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    option {
+        width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
