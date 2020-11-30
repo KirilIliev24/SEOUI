@@ -3,16 +3,17 @@
 
 @inject ResultService ResultService
 
-<h3>TextComponent</h3>
+
 
 <div class="container">
+    <h3>TextComponent</h3>
     <div class="row">
-        <div class="col-md-12 text">
-            @if (!meaningfulText.Equals(""))
-            {
+        @if (!meaningfulText.Equals(""))
+        {
+            <div class="col-md-12 textBox">
                 <p>@meaningfulText</p>
-            }
-        </div>
+            </div>
+        }
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -41,7 +42,7 @@
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
 
         meaningfulText = await ResultService.GetMeaningfulText(index, newTime);
-       
+
     }
 
     public class TimeSelected
@@ -56,9 +57,17 @@
         max-height: 200px;
         overflow: auto;
     }
+
     div.text {
         border: solid;
-        border-width: 3px;
+        border-width: 1.5px;
         border-color: black;
     }
+
+    .textBox {
+        border: solid;
+        border-width: 1px;
+        border-color: darkgray;
+    }
+
 </style>

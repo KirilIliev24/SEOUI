@@ -30,13 +30,15 @@ namespace TestBlazorhart.Data
             client = clientFactory.CreateClient();
         }
 
-        public async Task GetResultAsync(string keyword)
+        public async Task GetResultAsync(string keyword, DateTime startDate, DateTime endDate)
         {
 
             try
             {
-
                 int blazorIndex = 0;
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.TryAddWithoutValidation("startDate", startDate.ToString());
+                client.DefaultRequestHeaders.TryAddWithoutValidation("endDate", endDate.ToString());
                 var response = await client.GetStringAsync($"https://localhost/SearchEngine/getByKeyword/{keyword}");
                 var receivedData = JsonConvert.DeserializeObject<Result[]>(response);
                 results = receivedData.ToList();

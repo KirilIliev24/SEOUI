@@ -161,12 +161,17 @@ using TestBlazorhart.Pages.Fragments;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 66 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
+#line 109 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
        
     private Result[] results;
     private List<string> keywords = new List<string>();
     private string addKeyword;
     private string keyword = "";
+    private bool chooseDate { get; set; } = false;
+    private bool loading { get; set; } = false;
+
+    TimeSelected _startDate { get; set; } = new TimeSelected();
+    TimeSelected _endDate { get; set; } = new TimeSelected();
 
     private async Task AddKeyWord()
     {
@@ -177,8 +182,24 @@ using TestBlazorhart.Pages.Fragments;
 
     private async Task GetLinks()
     {
-        await ResultService.GetResultAsync(keyword);
-        results = ResultService.results.ToArray();
+        loading = true;
+        if (chooseDate == false)
+        {
+            _startDate.dateTime = new DateTime(2000, 1, 1);
+            _endDate.dateTime = DateTime.Now;
+
+            await ResultService.GetResultAsync(keyword, _startDate.dateTime, _endDate.dateTime);
+            loading = false;
+            results = ResultService.results.ToArray();
+
+            _startDate.dateTime = DateTime.Now;
+        }
+        else
+        {
+            await ResultService.GetResultAsync(keyword, _startDate.dateTime, _endDate.dateTime);
+            loading = false;
+            results = ResultService.results.ToArray();
+        }
     }
 
 
@@ -198,6 +219,16 @@ using TestBlazorhart.Pages.Fragments;
 
             Console.WriteLine(e.StackTrace);
         }
+    }
+
+    public void showDatePicker()
+    {
+        chooseDate = !chooseDate;
+    }
+
+    public class TimeSelected
+    {
+        public DateTime dateTime { get; set; } = DateTime.Now;
     }
 
 #line default
