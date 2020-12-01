@@ -153,7 +153,7 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 27 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Fragments\ResultComponent.razor"
+#line 26 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Fragments\ResultComponent.razor"
        
     [Parameter] public Result result { get; set; }
 

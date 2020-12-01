@@ -13,7 +13,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label>Choose a keyword</label>
+                <label>Choose a keyword: @keyword</label>
                 <br />
                 <select @bind="keyword">
                     <option value="" disabled selected>--Choose--</option>
@@ -93,7 +93,7 @@
             @foreach (var result in results)
             {
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 resultComp">
                         <TestBlazorhart.Pages.Fragments.ResultComponent result="@result"></TestBlazorhart.Pages.Fragments.ResultComponent>
                     </div>
                 </div>
@@ -238,5 +238,10 @@
     .spinDiv {
         display: flex;
         justify-content: center;
+    }
+
+    .resultComp {
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 </style>
