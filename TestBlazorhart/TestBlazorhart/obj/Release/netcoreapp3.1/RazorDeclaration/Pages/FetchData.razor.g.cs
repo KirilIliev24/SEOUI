@@ -13,140 +13,140 @@ namespace TestBlazorhart.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 1 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 2 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 3 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 4 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 5 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 6 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 7 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 8 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using TestBlazorhart;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 9 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using TestBlazorhart.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 10 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 11 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor.Common;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 12 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 12 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor.Common.Axes;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 13 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor.Common.Axes.Ticks;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 14 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 14 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor.Common.Enums;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 15 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 15 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor.Common.Handlers;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 16 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 16 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor.Common.Time;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 17 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 17 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor.Util;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 18 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\_Imports.razor"
+#line 18 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\_Imports.razor"
 using ChartJs.Blazor.Interop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
+#line 3 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
 using TestBlazorhart.Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
+#line 4 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
 using TestBlazorhart.Pages.Fragments;
 
 #line default
@@ -161,12 +161,17 @@ using TestBlazorhart.Pages.Fragments;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\Users\Administrator\source\repos\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
+#line 109 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\FetchData.razor"
        
     private Result[] results;
     private List<string> keywords = new List<string>();
     private string addKeyword;
     private string keyword = "";
+    private bool chooseDate { get; set; } = false;
+    private bool loading { get; set; } = false;
+
+    TimeSelected _startDate { get; set; } = new TimeSelected();
+    TimeSelected _endDate { get; set; } = new TimeSelected();
 
     private async Task AddKeyWord()
     {
@@ -177,8 +182,24 @@ using TestBlazorhart.Pages.Fragments;
 
     private async Task GetLinks()
     {
-        await ResultService.GetResultAsync(keyword);
-        results = ResultService.results.ToArray();
+        loading = true;
+        if (chooseDate == false)
+        {
+            _startDate.dateTime = new DateTime(2000, 1, 1);
+            _endDate.dateTime = DateTime.Now;
+
+            await ResultService.GetResultAsync(keyword, _startDate.dateTime, _endDate.dateTime);
+            loading = false;
+            results = ResultService.results.ToArray();
+
+            _startDate.dateTime = DateTime.Now;
+        }
+        else
+        {
+            await ResultService.GetResultAsync(keyword, _startDate.dateTime, _endDate.dateTime);
+            loading = false;
+            results = ResultService.results.ToArray();
+        }
     }
 
 
@@ -198,6 +219,16 @@ using TestBlazorhart.Pages.Fragments;
 
             Console.WriteLine(e.StackTrace);
         }
+    }
+
+    public void showDatePicker()
+    {
+        chooseDate = !chooseDate;
+    }
+
+    public class TimeSelected
+    {
+        public DateTime dateTime { get; set; } = DateTime.Now;
     }
 
 #line default

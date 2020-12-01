@@ -29,6 +29,16 @@
                             }
                         </tr>
                     }
+                    <tr>
+                        <td colspan="4" class="centerTd">
+                            <b>@oneContTwo</b>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td colspan="4" class="centerTd">
+                            <b>@twoContOne</b>
+                        </td>
+                    </tr>
                 }
             </table>
         </div>
@@ -73,14 +83,17 @@
     public string message = "";
     List<string> strings = new List<string>();
     List<Result> results = new List<Result>();
-    int noOfRows;// round ceiling missing a row
+    int noOfRows; // no of rows needed to dosplay all externl links
     public int secondLinkId;
+
+    string oneContTwo = "";
+    string twoContOne = "";
 
     TimeSelected _Date { get; set; } = new TimeSelected();
 
     protected async override Task OnInitializedAsync()
     {
-        results = await Task.Run(() => ResultService.results); 
+        results = await Task.Run(() => ResultService.results);
     }
 
     public async Task GetData()
@@ -88,6 +101,13 @@
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
         await ResultService.GetLinksFromUrl(index, secondLinkId ,newTime);
         strings = ResultService.resultsFromCraler;
+       
+        twoContOne = strings.Last();
+        strings.RemoveAt(strings.Count - 1);
+
+        oneContTwo = strings.Last();
+        strings.RemoveAt(strings.Count - 1);
+
         noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
 
         for (int i = strings.Count(); i < noOfRows * 4; i++)
@@ -131,5 +151,9 @@
         width: 100px;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .centerTd {
+        text-align: center;
     }
 </style>
