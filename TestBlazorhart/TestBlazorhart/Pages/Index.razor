@@ -16,6 +16,7 @@
 
 
 <h1>Rankings</h1>
+<h3>@currentLink</h3>
 
 <div class="container">
     <div class="row">
@@ -96,9 +97,13 @@
         private LineDataset<TimePoint> _lineDataSetPositions;
         private string id = "";
 
+        private string currentLink = "";
+
         protected override async Task OnInitializedAsync()
         {
             await initialiseChart();
+
+            currentLink = ResultService.getLinkByIndex(index);
 
             await ResultService.GetLinkPositions(index, null, null);
             if (ResultService.linkPositions != null)
@@ -256,7 +261,7 @@
                 box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
             }
 
-        h1 {
+        h1, h3 {
             text-align:center;
         }
     </style>

@@ -172,6 +172,12 @@ namespace TestBlazorhart.Data
             }
             return unZippedText;
         }
-       
+
+
+        public string getLinkByIndex(int index)
+        {
+            var result = results.Select(r => r).Where(r => r.blazorIndex == index).FirstOrDefault();
+            return result.Link;
+        }
     }
 }
