@@ -161,111 +161,115 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 87 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Index.razor"
+#line 97 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Index.razor"
  
-        [Parameter] public int index { get; set; }
-        private List<DateAndPosition> linkPositions = new List<DateAndPosition>();
+    [Parameter] public int index { get; set; }
+    private List<DateAndPosition> linkPositions = new List<DateAndPosition>();
 
-        TimeSelected _startDate { get; set; } = new TimeSelected();
-        TimeSelected _endDate { get; set; } = new TimeSelected();
+    TimeSelected _startDate { get; set; } = new TimeSelected();
+    TimeSelected _endDate { get; set; } = new TimeSelected();
 
-        private LineConfig _lineConfig;
+    private LineConfig _lineConfig;
 
-        private LineDataset<TimePoint> _lineDataSetPositions;
-        private string id = "";
+    private LineDataset<TimePoint> _lineDataSetPositions;
+    private string id = "";
 
-        protected override async Task OnInitializedAsync()
+    private string currentLink = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await initialiseChart();
+
+        currentLink = ResultService.getLinkByIndex(index);
+
+        await ResultService.GetLinkPositions(index, null, null);
+        if (ResultService.linkPositions != null)
         {
-            await initialiseChart();
-
-            await ResultService.GetLinkPositions(index, null, null);
-            if (ResultService.linkPositions != null)
-            {
-                linkPositions = ResultService.linkPositions;
-            }
-
-            _lineDataSetPositions = new LineDataset<TimePoint>()
-            {
-                BackgroundColor = ColorUtil.FromDrawingColor(System.Drawing.Color.White),
-                BorderColor = ColorUtil.FromDrawingColor(System.Drawing.Color.Red),
-                Label = "Position",
-                Fill = false,
-                BorderWidth = 2,
-                PointRadius = 2,
-                PointBorderWidth = 2,
-                SteppedLine = SteppedLine.False,
-                LineTension = 0
-            };
-
-
-            _lineDataSetPositions.AddRange(linkPositions
-                .Select(p => new TimePoint(p.Date, p.Position)));
-
-
-            _lineConfig.Data.Datasets.Add(_lineDataSetPositions);
-
+            linkPositions = ResultService.linkPositions;
         }
 
-        public async Task GetDateRange()
+        _lineDataSetPositions = new LineDataset<TimePoint>()
         {
-            var startTime = new DateTime(_startDate.dateTime.Year, _startDate.dateTime.Month, _startDate.dateTime.Day, 0, 0, 0);
-            var endTime = new DateTime(_endDate.dateTime.Year, _endDate.dateTime.Month, _endDate.dateTime.Day, 23, 59, 59);
+            BackgroundColor = ColorUtil.FromDrawingColor(System.Drawing.Color.White),
+            BorderColor = ColorUtil.FromDrawingColor(System.Drawing.Color.Red),
+            Label = "Position",
+            Fill = false,
+            BorderWidth = 2,
+            PointRadius = 2,
+            PointBorderWidth = 2,
+            SteppedLine = SteppedLine.False,
+            LineTension = 0
+        };
 
-            var dataset = _lineConfig.Data.Datasets;
 
-            _lineConfig.Data.Datasets.Remove(_lineDataSetPositions);
-            //await _lineChart.Update();
-
-            await ResultService.GetLinkPositions(index, startTime, endTime);
-            if (ResultService.linkPositions != null)
-            {
-                linkPositions = ResultService.linkPositions;
-            }
-            //await _lineChart.Update();
-
-            _lineDataSetPositions = new LineDataset<TimePoint>()
-            {
-                BackgroundColor = ColorUtil.FromDrawingColor(System.Drawing.Color.White),
-                BorderColor = ColorUtil.FromDrawingColor(System.Drawing.Color.Red),
-                Label = "Position",
-                Fill = false,
-                BorderWidth = 2,
-                PointRadius = 2,
-                PointBorderWidth = 2,
-                SteppedLine = SteppedLine.False,
-                LineTension = 0
-            };
-
-            _lineDataSetPositions.AddRange(linkPositions
+        _lineDataSetPositions.AddRange(linkPositions
             .Select(p => new TimePoint(p.Date, p.Position)));
 
-            _lineConfig.Data.Datasets.Add(_lineDataSetPositions);
-        }
 
-        private async Task initialiseChart()
+        _lineConfig.Data.Datasets.Add(_lineDataSetPositions);
+
+    }
+
+    public async Task GetDateRange()
+    {
+        var startTime = new DateTime(_startDate.dateTime.Year, _startDate.dateTime.Month, _startDate.dateTime.Day, 0, 0, 0);
+        var endTime = new DateTime(_endDate.dateTime.Year, _endDate.dateTime.Month, _endDate.dateTime.Day, 23, 59, 59);
+
+        var dataset = _lineConfig.Data.Datasets;
+
+        _lineConfig.Data.Datasets.Remove(_lineDataSetPositions);
+        //await _lineChart.Update();
+
+        await ResultService.GetLinkPositions(index, startTime, endTime);
+        if (ResultService.linkPositions != null)
         {
-            _lineConfig = new LineConfig
+            linkPositions = ResultService.linkPositions;
+        }
+        //await _lineChart.Update();
+
+        _lineDataSetPositions = new LineDataset<TimePoint>()
+        {
+            BackgroundColor = ColorUtil.FromDrawingColor(System.Drawing.Color.White),
+            BorderColor = ColorUtil.FromDrawingColor(System.Drawing.Color.Red),
+            Label = "Position",
+            Fill = false,
+            BorderWidth = 2,
+            PointRadius = 2,
+            PointBorderWidth = 2,
+            SteppedLine = SteppedLine.False,
+            LineTension = 0
+        };
+
+        _lineDataSetPositions.AddRange(linkPositions
+        .Select(p => new TimePoint(p.Date, p.Position)));
+
+        _lineConfig.Data.Datasets.Add(_lineDataSetPositions);
+    }
+
+    private async Task initialiseChart()
+    {
+        _lineConfig = new LineConfig
+        {
+            Options = new LineOptions
             {
-                Options = new LineOptions
+                Responsive = true,
+                Title = new OptionsTitle
                 {
-                    Responsive = true,
-                    Title = new OptionsTitle
-                    {
-                        Display = true,
-                        Text = "Website rank"
-                    },
-                    Legend = new Legend
-                    {
-                        Display = false
-                    },
-                    Tooltips = new Tooltips
-                    {
-                        Mode = InteractionMode.Nearest,
-                        Intersect = false
-                    },
-                    Scales = new Scales
-                    {
-                        YAxes = new List<CartesianAxis>
+                    Display = true,
+                    Text = "Website rank"
+                },
+                Legend = new Legend
+                {
+                    Display = false
+                },
+                Tooltips = new Tooltips
+                {
+                    Mode = InteractionMode.Nearest,
+                    Intersect = false
+                },
+                Scales = new Scales
+                {
+                    YAxes = new List<CartesianAxis>
 {
                         new LinearCartesianAxis
                         {
@@ -280,7 +284,7 @@ using TestBlazorhart.Data;
                             }
                         }
                     },
-                        XAxes = new List<CartesianAxis>
+                    XAxes = new List<CartesianAxis>
 {
                         new TimeAxis
                         {
@@ -302,24 +306,23 @@ using TestBlazorhart.Data;
                             }
                         }
                     }
-                    },
-                    Hover = new Hover
-                    {
-                        Intersect = true,
-                        Mode = InteractionMode.Y
-                    }
+                },
+                Hover = new Hover
+                {
+                    Intersect = true,
+                    Mode = InteractionMode.Y
                 }
-            };
+            }
+        };
 
-            id = await Task.Run(() => _lineConfig.CanvasId);
+        id = await Task.Run(() => _lineConfig.CanvasId);
 
-        }
+    }
 
-        public class TimeSelected
-        {
-            public DateTime dateTime { get; set; } = DateTime.Now;
-        }
-    
+    public class TimeSelected
+    {
+        public DateTime dateTime { get; set; } = DateTime.Now;
+    }
 
 #line default
 #line hidden

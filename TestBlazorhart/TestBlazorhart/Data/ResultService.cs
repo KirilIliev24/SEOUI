@@ -18,6 +18,9 @@ namespace TestBlazorhart.Data
         public List<string> resultsFromCraler { get; set; }
         public List<string> keywords { get; set; }
         public List<DateAndPosition> linkPositions { get; set; }
+        public List<MeaningfulText> meaningfulTexts { get; set; }
+
+        public string unZippedText = "";
 
         HttpClient client;
 
@@ -26,7 +29,7 @@ namespace TestBlazorhart.Data
             results = new List<Result>();
             resultsFromCraler = new List<string>();
             linkPositions = new List<DateAndPosition>();
-
+            meaningfulTexts = new List<MeaningfulText>();
             client = clientFactory.CreateClient();
         }
 
@@ -149,11 +152,10 @@ namespace TestBlazorhart.Data
             }
         }
 
-        public async Task<string> GetMeaningfulText(int index, DateTime time)
+        public async Task GetMeaningfulText(int index, DateTime time)
         {
             var result = results.Select(r => r).Where(r => r.blazorIndex == index).FirstOrDefault();
-            string zippedText = "";
-            string unZippedText = "";
+            
             try
             {
                 client.DefaultRequestHeaders.Clear();
@@ -161,16 +163,15 @@ namespace TestBlazorhart.Data
                 client.DefaultRequestHeaders.TryAddWithoutValidation("date", time.ToString());
                 var response = await client.GetStringAsync("https://localhost/SearchEngine/getMeaningfultext");
 
-                //zippedText = JsonConvert.DeserializeObject<string>(response);
-                zippedText = response;
-                unZippedText = Zipper.Decompress(zippedText);
+                meaningfulTexts = JsonConvert.DeserializeObject<List<MeaningfulText>>(response);
+                var zippedText = meaningfulTexts.First();
+                unZippedText = Zipper.Decompress(zippedText.Text);
             }
             catch (Exception e)
             {
                 if (e is NullReferenceException || e is ArgumentNullException || e is HttpRequestException)
                     Console.WriteLine(e.Message);
             }
-            return unZippedText;
         }
 
 

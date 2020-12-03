@@ -7,14 +7,27 @@
 
 <div class="container">
     <h3>TextComponent</h3>
-    <div class="row">
-        @if (!meaningfulText.Equals(""))
-        {
+    @if (!meaningfulText.Equals(""))
+    {
+        <div class="row">
             <div class="col-md-12 textBox">
                 <p>@meaningfulText</p>
             </div>
+        </div>
+        @foreach (var t in texts)
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    Number of @t.Keyword words in text: @t.KeywordsInText
+                </div>
+                <div class="col-md-6">
+                    Number of @t.Keyword words in meta tags: @t.KeywordsInMetaTags
+                </div>
+            </div>
         }
-    </div>
+    }
+
+
     <div class="row">
         <div class="col-md-12">
             <label>Select date: </label>
@@ -34,6 +47,8 @@
     [Parameter] public int index { get; set; } // index of the link
     public string meaningfulText = "";
 
+    public List<MeaningfulText> texts = new List<MeaningfulText>();
+
     TimeSelected _Date { get; set; } = new TimeSelected();
 
 
@@ -41,8 +56,9 @@
     {
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
 
-        meaningfulText = await ResultService.GetMeaningfulText(index, newTime);
-
+        await ResultService.GetMeaningfulText(index, newTime);
+        meaningfulText = ResultService.unZippedText;
+        texts = ResultService.meaningfulTexts;
     }
 
     public class TimeSelected
@@ -69,5 +85,4 @@
         border-width: 1px;
         border-color: darkgray;
     }
-
 </style>
