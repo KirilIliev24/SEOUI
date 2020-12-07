@@ -61,7 +61,14 @@
                 {
                     @foreach (Result s in results)
                     {
-                        <option value="@s.blazorIndex">@s.Link</option>
+                        @if (s.blazorIndex == index)
+                        {
+                            <option value="@s.blazorIndex" disabled>@s.Link</option>
+                        }
+                        else
+                        {
+                            <option value="@s.blazorIndex">@s.Link</option>
+                        }
                     }
                 }
                 else
@@ -101,12 +108,15 @@
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
         await ResultService.GetLinksFromUrl(index, secondLinkId ,newTime);
         strings = ResultService.resultsFromCraler;
-       
-        twoContOne = strings.Last();
-        strings.RemoveAt(strings.Count - 1);
 
-        oneContTwo = strings.Last();
-        strings.RemoveAt(strings.Count - 1);
+        if (secondLinkId != -1)
+        {
+            twoContOne = strings.Last();
+            strings.RemoveAt(strings.Count - 1);
+
+            oneContTwo = strings.Last();
+            strings.RemoveAt(strings.Count - 1);
+        }
 
         noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
 
@@ -115,6 +125,7 @@
             strings.Add("");
         }
         strings.ToArray();
+
     }
 
     public class TimeSelected

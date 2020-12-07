@@ -153,7 +153,7 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 81 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Fragments\ExternalLinksComponent.razor"
+#line 88 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Fragments\ExternalLinksComponent.razor"
        
     [Parameter] public int index { get; set; } // index of the link
     public string message = "";
@@ -177,12 +177,15 @@ using TestBlazorhart.Data;
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
         await ResultService.GetLinksFromUrl(index, secondLinkId ,newTime);
         strings = ResultService.resultsFromCraler;
-       
-        twoContOne = strings.Last();
-        strings.RemoveAt(strings.Count - 1);
 
-        oneContTwo = strings.Last();
-        strings.RemoveAt(strings.Count - 1);
+        if (secondLinkId != -1)
+        {
+            twoContOne = strings.Last();
+            strings.RemoveAt(strings.Count - 1);
+
+            oneContTwo = strings.Last();
+            strings.RemoveAt(strings.Count - 1);
+        }
 
         noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
 
@@ -191,6 +194,7 @@ using TestBlazorhart.Data;
             strings.Add("");
         }
         strings.ToArray();
+
     }
 
     public class TimeSelected

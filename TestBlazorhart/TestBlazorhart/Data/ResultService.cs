@@ -106,7 +106,7 @@ namespace TestBlazorhart.Data
                     resultsFromCraler.Clear();
                     resultsFromCraler = JsonConvert.DeserializeObject<List<string>>(responseOne);
                 }
-                else if(secondIndex == -1)
+                else if (secondIndex == -1)
                 {
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.TryAddWithoutValidation("url", resultOne.Link);
@@ -119,8 +119,8 @@ namespace TestBlazorhart.Data
             }
             catch (Exception e)
             {
-                if (e is NullReferenceException || e is ArgumentNullException || e is HttpRequestException)
-                    Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException);
             }
         }
 
@@ -155,7 +155,7 @@ namespace TestBlazorhart.Data
         public async Task GetMeaningfulText(int index, DateTime time)
         {
             var result = results.Select(r => r).Where(r => r.blazorIndex == index).FirstOrDefault();
-            
+
             try
             {
                 client.DefaultRequestHeaders.Clear();
