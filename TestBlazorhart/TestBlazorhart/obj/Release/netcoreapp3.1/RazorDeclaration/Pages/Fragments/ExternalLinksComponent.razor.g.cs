@@ -153,7 +153,7 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 81 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Fragments\ExternalLinksComponent.razor"
+#line 111 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Fragments\ExternalLinksComponent.razor"
        
     [Parameter] public int index { get; set; } // index of the link
     public string message = "";
@@ -161,6 +161,8 @@ using TestBlazorhart.Data;
     List<Result> results = new List<Result>();
     int noOfRows; // no of rows needed to dosplay all externl links
     public int secondLinkId;
+
+    public bool loading = false;
 
     string oneContTwo = "";
     string twoContOne = "";
@@ -174,23 +176,36 @@ using TestBlazorhart.Data;
 
     public async Task GetData()
     {
+        loading = true;
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
-        await ResultService.GetLinksFromUrl(index, secondLinkId ,newTime);
+        await ResultService.GetLinksFromUrl(index, secondLinkId, newTime);
         strings = ResultService.resultsFromCraler;
-       
-        twoContOne = strings.Last();
-        strings.RemoveAt(strings.Count - 1);
 
-        oneContTwo = strings.Last();
-        strings.RemoveAt(strings.Count - 1);
-
-        noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
-
-        for (int i = strings.Count(); i < noOfRows * 4; i++)
+        try
         {
-            strings.Add("");
+            if (secondLinkId != -1 && strings.Count != 0)
+            {
+                twoContOne = strings.Last();
+                strings.RemoveAt(strings.Count - 1);
+
+                oneContTwo = strings.Last();
+                strings.RemoveAt(strings.Count - 1);
+                noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
+
+                for (int i = strings.Count(); i < noOfRows * 4; i++)
+                {
+                    strings.Add("");
+                }
+                strings.ToArray();
+                loading = false;
+            }
         }
-        strings.ToArray();
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            message = "No external links found";
+            loading = false;
+        }
     }
 
     public class TimeSelected

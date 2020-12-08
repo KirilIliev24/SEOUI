@@ -9,38 +9,62 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-
-            <table>
-                @if (noOfRows != 0)
+            @if (loading == false)
+            {
+                @if (strings.Count != 0)
                 {
-                    @for (int i = 0; i < noOfRows; i++)
-                    {
-                        <tr>
-                            @for (int j = 0; j < 4; j++)
+                    <table>
+                        @if (noOfRows != 0)
+                        {
+                            @for (int i = 0; i < noOfRows; i++)
                             {
-                                @if (@strings[i * 4 + j] != null)
-                                {
-                                    <td><a href="@strings[i * 4 + j]">@strings[i * 4 + j]</a></td>
-                                }
-                                else
-                                {
-                                    <td></td>
-                                }
+                                <tr>
+                                    @for (int j = 0; j < 4; j++)
+                                    {
+                                        @if (@strings[i * 4 + j] != null)
+                                        {
+                                            <td><a href="@strings[i * 4 + j]">@strings[i * 4 + j]</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                    }
+                                </tr>
                             }
-                        </tr>
-                    }
-                    <tr>
-                        <td colspan="4" class="centerTd">
-                            <b>@oneContTwo</b>
-                        </td>
-                    </tr> 
-                    <tr>
-                        <td colspan="4" class="centerTd">
-                            <b>@twoContOne</b>
-                        </td>
-                    </tr>
+                            <tr>
+                                <td colspan="4" class="centerTd">
+                                    <b>@oneContTwo</b>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4" class="centerTd">
+                                    <b>@twoContOne</b>
+                                </td>
+                            </tr>
+                        }
+                    </table>
                 }
-            </table>
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <span>@message</span>
+                        </div>
+                    </div>
+                   
+                }
+
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12 spinDiv">
+                        <div class="spinner-border"></div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -56,7 +80,7 @@
         <div class="col-md-6">
             <label>Choose second link for cross reference</label>
             <select @bind="secondLinkId">
-                <option value="-1" disabled selected>--Choose--</option>
+                <option value="-1" selected>None</option>
                 @if (results.Count != 0)
                 {
                     @foreach (Result s in results)
@@ -73,9 +97,8 @@
                 }
                 else
                 {
-                    <option disabled>Waiting for keywords...</option>
+                    <option disabled>Waiting for links...</option>
                 }
-                <option value="-1">None</option>
             </select>
         </div>
     </div>
@@ -93,6 +116,8 @@
     int noOfRows; // no of rows needed to dosplay all externl links
     public int secondLinkId;
 
+    public bool loading = false;
+
     string oneContTwo = "";
     string twoContOne = "";
 
@@ -105,27 +130,36 @@
 
     public async Task GetData()
     {
+        loading = true;
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
-        await ResultService.GetLinksFromUrl(index, secondLinkId ,newTime);
+        await ResultService.GetLinksFromUrl(index, secondLinkId, newTime);
         strings = ResultService.resultsFromCraler;
 
-        if (secondLinkId != -1)
+        try
         {
-            twoContOne = strings.Last();
-            strings.RemoveAt(strings.Count - 1);
+            if (secondLinkId != -1 && strings.Count != 0)
+            {
+                twoContOne = strings.Last();
+                strings.RemoveAt(strings.Count - 1);
 
-            oneContTwo = strings.Last();
-            strings.RemoveAt(strings.Count - 1);
+                oneContTwo = strings.Last();
+                strings.RemoveAt(strings.Count - 1);
+                noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
+
+                for (int i = strings.Count(); i < noOfRows * 4; i++)
+                {
+                    strings.Add("");
+                }
+                strings.ToArray();
+                loading = false;
+            }
         }
-
-        noOfRows = (int)Math.Ceiling((decimal)((strings.Count() * 1.0) / 4.0));
-
-        for (int i = strings.Count(); i < noOfRows * 4; i++)
+        catch (Exception e)
         {
-            strings.Add("");
+            Console.WriteLine(e.Message);
+            message = "No external links found";
+            loading = false;
         }
-        strings.ToArray();
-
     }
 
     public class TimeSelected
@@ -152,12 +186,14 @@
     h3 {
         text-align: center
     }
+
     select {
         width: inherit;
         height: 35px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     option {
         width: 100px;
         overflow: hidden;
@@ -166,5 +202,21 @@
 
     .centerTd {
         text-align: center;
+    }
+
+    .spinDiv {
+        display: flex;
+        justify-content: center;
+    }
+
+    span {
+        display: flex;
+        justify-content: center;
+        font-size: medium;
+    }
+
+    button {
+        background-color: #07428a;
+        color: white;
     }
 </style>

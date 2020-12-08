@@ -153,23 +153,32 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 46 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Fragments\TextComponent.razor"
+#line 64 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Fragments\TextComponent.razor"
        
     [Parameter] public int index { get; set; } // index of the link
     public string meaningfulText = "";
+    public string message = "";
 
     public List<MeaningfulText> texts = new List<MeaningfulText>();
 
     TimeSelected _Date { get; set; } = new TimeSelected();
 
+    public bool loading = false;
+
 
     public async Task GetData()
     {
+        loading = true;
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
 
         await ResultService.GetMeaningfulText(index, newTime);
         meaningfulText = ResultService.unZippedText;
         texts = ResultService.meaningfulTexts;
+        if (meaningfulText.Equals(""))
+        {
+            message = "No text found";
+        }
+        loading = false;
     }
 
     public class TimeSelected

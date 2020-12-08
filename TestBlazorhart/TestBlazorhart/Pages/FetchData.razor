@@ -30,7 +30,15 @@
                     }
                 </select>
 
-                <button @onclick="GetLinks">Get links</button>
+                @if (chooseDate == true)
+                {
+                    <button @onclick="GetLinks" hidden>Get links</button>
+                }
+                else
+                {
+                    <button @onclick="GetLinks">Get all links</button>
+                }
+
 
 
             </div>
@@ -69,10 +77,12 @@
                 @if (chooseDate == false)
                 {
                     <button @onclick="showDatePicker">Pick date range<i class="arrow down"></i></button>
+
                 }
                 else
                 {
                     <button @onclick="showDatePicker">Pick date range<i class="arrow up"></i></button>
+                    <button @onclick="GetLinks">Get links</button>
                 }
             </div>
         </div>

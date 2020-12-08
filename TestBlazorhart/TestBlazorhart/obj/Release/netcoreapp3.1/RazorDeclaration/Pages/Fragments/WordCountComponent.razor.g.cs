@@ -182,7 +182,7 @@ using TestBlazorhart.Data;
             HoverBorderColor = ColorUtil.FromDrawingColor(System.Drawing.Color.Red),
             HoverBorderWidth = 1,
             BorderColor = "#ffffff",
-            BarThickness = BarThickness.Flex
+            BarThickness = BarThickness.Absolute(5)
         };
 
 
