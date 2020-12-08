@@ -161,7 +161,7 @@ using TestBlazorhart.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 97 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Index.razor"
+#line 103 "C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\Pages\Index.razor"
  
     [Parameter] public int index { get; set; }
     private List<DateAndPosition> linkPositions = new List<DateAndPosition>();
