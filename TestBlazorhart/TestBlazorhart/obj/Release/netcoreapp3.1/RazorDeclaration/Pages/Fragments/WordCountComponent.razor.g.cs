@@ -235,14 +235,14 @@ using TestBlazorhart.Data;
                     {
                         new TimeAxis
                         {
-                            Distribution = TimeDistribution.Linear,
+                            Distribution = TimeDistribution.Series,
                             Ticks = new TimeTicks
                             {
                                 Source = TickSource.Data
                             },
                             Time = new TimeOptions
                             {
-                                Unit = TimeMeasurement.Day,
+                                Unit = TimeMeasurement.Week,
                                 Round = TimeMeasurement.Hour,
                                 TooltipFormat = "MM.DD.YYYY",
                                 //DisplayFormats = TimeDisplayFormats.DE_CH

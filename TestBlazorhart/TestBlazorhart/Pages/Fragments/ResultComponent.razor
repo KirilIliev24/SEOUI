@@ -9,14 +9,14 @@
         <div class="col-lg-12" id="items">
             @result.Title
             <br />
-            <a href="@result.Link">@result.Link</a>
+            <a href="@result.Link" target="_blank">@result.Link</a>
             <br />
             @result.Snippet
         </div>
     </div>
     <div class="row">
         <div class="col-md-3">
-            <button class="btn btn-primary" @onclick="viewLinkPositions" >Rankings</button>
+            <button class="btn btn-primary myButton" @onclick="viewLinkPositions" >Rankings</button>
         </div>
     </div>
 </div>
@@ -35,7 +35,6 @@
 
 <style>
     #items {
-        background-color: #d9eefa;
         display: block;
         width: 500px;
         height: auto;
@@ -46,15 +45,22 @@
         text-overflow: ellipsis;
     }
 
-    button {
-        transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    .myButton {
         width: auto;
-    }
-        button:hover {
-            box-shadow: 0 0 40px 40px #061ba1 inset;
-            color: white;
-        }
-    label {
-        margin-top: 20px;
+        min-width: 25%;
+        height: 30px;
+        margin-top: 5px;
+        box-shadow: 3px 4px 7px 0px #718a6a;
+        background: linear-gradient(to bottom, #586be8 5%, #5aa1e0 100%);
+        background-color: #586be8;
+        border-radius: 28px;
+        border: 1px solid #4e86cc;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 17px;
+        text-decoration: none;
+        text-shadow: 0px 0px 0px #2f6627;
     }
 </style>

@@ -4,6 +4,7 @@
 @using TestBlazorhart.Pages.Fragments
 @inject ResultService ResultService
 
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -13,37 +14,51 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label>Choose a keyword: @keyword</label>
-                <br />
-                <select @bind="keyword">
-                    <option value="" disabled selected>--Choose--</option>
-                    @if (keywords.Count != 0)
-                    {
-                        @foreach (string s in keywords)
-                        {
-                            <option value="@s">@s</option>
-                        }
-                    }
-                    else
-                    {
-                        <option disabled>Waiting for keywords...</option>
-                    }
-                </select>
-
                 @if (chooseDate == true)
                 {
-                    <button @onclick="GetLinks" hidden>Get links</button>
+                    <label>Choose a keyword: @keyword</label>
+                    <br />
+                    <select id="fullWight" @bind="keyword">
+                        <option value="" disabled selected>--Choose--</option>
+                        @if (keywords.Count != 0)
+                        {
+                            @foreach (string s in keywords)
+                            {
+                                <option value="@s">@s</option>
+                            }
+                        }
+                        else
+                        {
+                            <option disabled>Waiting for keywords...</option>
+                        }
+                    </select>
                 }
                 else
                 {
-                    <button @onclick="GetLinks">Get all links</button>
+                    <label>Choose a keyword: @keyword</label>
+                    <br />
+                    <select @bind="keyword">
+                        <option value="" disabled selected>--Choose--</option>
+                        @if (keywords.Count != 0)
+                        {
+                            @foreach (string s in keywords)
+                            {
+                                <option value="@s">@s</option>
+                            }
+                        }
+                        else
+                        {
+                            <option disabled>Waiting for keywords...</option>
+                        }
+                    </select>
+                    <button class="links myButton" @onclick="GetLinks">Get all links</button>
                 }
             </div>
             <div class="col-md-6">
                 <label>Add a keyword</label>
                 <br />
                 <input type="text" @bind="addKeyword" />
-                <button @onclick="AddKeyWord">Add keyword</button>
+                <button class="myButton" @onclick="AddKeyWord">Add keyword</button>
             </div>
         </div>
     </div>
@@ -51,14 +66,14 @@
     {
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label>Start date: </label>
                     <br />
                     <EditForm Model="@_startDate">
-                        <InputDate @bind-Value="_startDate.dateTime" class="form-control" />
+                        <InputDate @bind-Value="_startDate.dateTime" class="datePicker form-control" />
                     </EditForm>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label>End date: </label>
                     <br />
                     <EditForm Model="@_endDate">
@@ -70,15 +85,15 @@
     }
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6" id="datePickButton">
+            <div class="col-md-6">
                 @if (chooseDate == false)
                 {
-                    <button @onclick="showDatePicker">Pick date range<i class="arrow down"></i></button>
+                    <button class="myButton" @onclick="showDatePicker">Pick date range<i class="arrow down"></i></button>
                 }
                 else
                 {
-                    <button @onclick="showDatePicker">Pick date range<i class="arrow up"></i></button>
-                    <button @onclick="GetLinks">Get links</button>
+                    <button class="myButton" id="datePickButton" @onclick="showDatePicker">Pick date range<i class="arrow up"></i></button>
+                    <button class="myButton" @onclick="GetLinks">Get links</button>
                 }
             </div>
         </div>
@@ -183,29 +198,55 @@
 }
 <style>
     body {
-        background-color: #ebf4ff;
+        background-image: linear-gradient(90deg, #acd9f2 0%, #d9eefa 35%, #e9edf0 100%);
     }
 
     input {
         margin-top: 5px;
         width: 50%;
         height: 30px;
+        border-radius: 28px;
     }
 
     select {
         margin-top: 5px;
         width: 50%;
         height: 30px;
+        border-radius: 28px;
     }
 
-    button {
+        select#fullWight {
+            margin-top: 5px;
+            width: 75%;
+            height: 30px;
+        }
+
+    option {
+        border-radius: 28px;
+    }
+
+    .myButton {
         width: auto;
         min-width: 25%;
         height: 30px;
-        background-color: #07428a;
-        color: white;
         margin-top: 5px;
+        box-shadow: 3px 4px 7px 0px #718a6a;
+        background: linear-gradient(to bottom, #586be8 5%, #5aa1e0 100%);
+        background-color: #586be8;
+        border-radius: 28px;
+        border: 1px solid #4e86cc;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 17px;
+        text-decoration: none;
+        text-shadow: 0px 0px 0px #2f6627;
     }
+
+        .myButton:hover {
+            background-color: #2c79bd;
+        }
 
     h1 {
         text-align: center;
@@ -213,14 +254,12 @@
 
     label {
         font-size: large;
+        margin-top: 5px;
+        margin-bottom: -15px;
     }
 
-    div.col-md-6 {
-        display: block;
-    }
-
-    #datePickButton {
-        width: inherit !important;
+    button.links {
+        margin-left: 5px;
     }
 
     .arrow {
@@ -249,5 +288,13 @@
     .resultComp {
         margin-top: 10px;
         margin-bottom: 10px;
+    }
+
+    .form-control {
+        border-radius: 28px;
+    }
+
+    #datePickButton {
+        margin-right: 10px;
     }
 </style>

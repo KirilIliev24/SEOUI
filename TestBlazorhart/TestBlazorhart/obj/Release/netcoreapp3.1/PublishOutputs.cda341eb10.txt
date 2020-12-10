@@ -1,6 +1,7 @@
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Release\netcoreapp3.1\PubTmp\Out\TestBlazorhart.exe
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\bootstrap\bootstrap.min.css
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\bootstrap\bootstrap.min.css.map
+C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\DateInput.css
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\open-iconic\FONT-LICENSE
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\open-iconic\font\fonts\open-iconic.eot

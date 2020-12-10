@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h4><a href="@currentLink">@currentLink</a></h4>
+            <h4><a href="@currentLink" target="_blank">@currentLink</a></h4>
         </div>
     </div>
 </div>
@@ -110,7 +110,6 @@
     private LineConfig _lineConfig;
 
     private LineDataset<TimePoint> _lineDataSetPositions;
-    private string id = "";
 
     private string currentLink = "";
 
@@ -226,17 +225,16 @@
 {
                         new TimeAxis
                         {
-                            Distribution = TimeDistribution.Linear,
+                            Distribution = TimeDistribution.Series,
                             Ticks = new TimeTicks
                             {
                                 Source = TickSource.Data
                             },
                             Time = new TimeOptions
                             {
-                                Unit = TimeMeasurement.Day,
+                                Unit = TimeMeasurement.Week,
                                 Round = TimeMeasurement.Hour,
-                                TooltipFormat = "MM.DD.YYYY",
-                                //DisplayFormats = TimeDisplayFormats.DE_CH
+                                TooltipFormat = "DD.MM.YYYY"
                             },
                             ScaleLabel = new ScaleLabel
                             {
@@ -253,7 +251,6 @@
             }
         };
 
-        id = await Task.Run(() => _lineConfig.CanvasId);
 
     }
 
@@ -295,6 +292,15 @@
         justify-content: center;
         padding: 5px;
         margin-top: 5px;
+    }
+
+    .form-control {
+        border-radius: 28px;
+    }
+
+    select {
+        height: 37px;
+        border-radius: 28px;
     }
 </style>
 
