@@ -101,7 +101,6 @@ C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\bin\Debug
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\bin\Debug\netcoreapp3.1\Microsoft.JSInterop.dll
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\bin\Debug\netcoreapp3.1\RestSharp.dll
-C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.csprojAssemblyReference.cache
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.AssemblyInfoInputs.cache
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.AssemblyInfo.cs
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.csproj.CoreCompileInputs.cache
@@ -156,3 +155,4 @@ C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.dll
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.pdb
 C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.genruntimeconfig.cache
+C:\Users\Administrator\Kiril\repos\SEOUI\TestBlazorhart\TestBlazorhart\obj\Debug\netcoreapp3.1\TestBlazorhart.csprojAssemblyReference.cache

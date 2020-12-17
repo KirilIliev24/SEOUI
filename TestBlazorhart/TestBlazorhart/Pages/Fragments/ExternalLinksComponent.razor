@@ -80,7 +80,7 @@
         <div class="col-md-6">
             <label>Choose second link for cross reference</label>
             <select @bind="secondLinkId">
-                <option value="-1" selected>None</option>
+                <option value="-1" selected>--None--</option>
                 @if (results.Count != 0)
                 {
                     @foreach (Result s in results)
@@ -134,6 +134,9 @@
         var newTime = new DateTime(_Date.dateTime.Year, _Date.dateTime.Month, _Date.dateTime.Day, 0, 0, 0);
         await ResultService.GetLinksFromUrl(index, secondLinkId, newTime);
         strings = ResultService.resultsFromCraler;
+
+        oneContTwo = "";
+        twoContOne = "";
 
         try
         {

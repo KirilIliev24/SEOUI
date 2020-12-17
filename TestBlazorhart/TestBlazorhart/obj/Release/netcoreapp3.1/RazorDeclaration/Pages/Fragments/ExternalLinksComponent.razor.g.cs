@@ -181,6 +181,9 @@ using TestBlazorhart.Data;
         await ResultService.GetLinksFromUrl(index, secondLinkId, newTime);
         strings = ResultService.resultsFromCraler;
 
+        oneContTwo = "";
+        twoContOne = "";
+
         try
         {
             if (secondLinkId != -1 && strings.Count != 0)
